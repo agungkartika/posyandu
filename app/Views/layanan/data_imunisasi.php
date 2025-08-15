@@ -5,14 +5,8 @@
             <div class="x_panel">
                 <div class="x_title">
                     <h3>Data Imunisasi Anak</h3>
-                    <?php
-                    $msg = session()->getFlashdata('msg')
-                        ?? session()->getFlashdata('success')
-                        ?? session()->getFlashdata('error')
-                        ?? '';
-                    ?>
-                    <div class="flash-datap" data-flashdata="<?= esc($msg) ?>"></div>
-                    <?php if ($msg): ?><?php endif; ?>
+                    <?php $msg = session()->getFlashdata('msg') ?? session()->getFlashdata('success') ?? session()->getFlashdata('error') ?? ''; ?>
+                    <div class="flash-datar" data-flashdata="<?= esc($msg) ?>"></div>
 
                     <a href="<?= base_url('imunisasi-anak') ?>" class="btn btn-primary">Tambah Data Imunisasi</a>
                     <div class="clearfix"></div>

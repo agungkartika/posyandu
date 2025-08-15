@@ -180,9 +180,9 @@ class ImunisasiAnak extends BaseController
             }
             return redirect()->back()->withInput()->with('error', implode('; ', (array) $err));
         }
+        session()->setFlashdata($ok ? 'success' : 'error', $ok ? 'Berhasil Ditambahkan' : 'Gagal menambahkan data');
 
-        return redirect()->to(site_url('imunisasi-anak/data-imunisasi'))
-            ->with('msg', 'Data Berhasil Ditambahkan');
+        return redirect()->to(site_url('imunisasi-anak/data-imunisasi'));
     }
 
     // TAMBAH DATA (versi lengkap)
@@ -247,7 +247,7 @@ class ImunisasiAnak extends BaseController
             'nama_anak'  => $namaAnak,
         ];
 
-       
+
         return view('templates/header-datatables', $data)
             . view('templates/sidebar', $data)
             . view('templates/topbar', $data)
@@ -257,46 +257,46 @@ class ImunisasiAnak extends BaseController
 
     // UPDATE DATA (proses)
     public function update()
-        {
-            if ($redir = $this->requireLogin()) return $redir;
+    {
+        if ($redir = $this->requireLogin()) return $redir;
 
-            $user = $this->currentUser();
+        $user = $this->currentUser();
 
-            $id = $this->request->getPost('id_imunisasi');
+        $id = $this->request->getPost('id_imunisasi');
 
-            $rules = [
-                'id_anak'         => 'required|is_natural_no_zero',
-                'tgl_skrng'       => 'required',
-                'jenis_imunisasi' => 'required|string',
-            ];
+        $rules = [
+            'id_anak'         => 'required|is_natural_no_zero',
+            'tgl_skrng'       => 'required',
+            'jenis_imunisasi' => 'required|string',
+        ];
 
-            if (! $this->validate($rules)) {
-                return redirect()->back()->withInput()->with('error', implode(' | ', $this->validator->getErrors()));
-            }
-
-            $payload = [
-                'anak_id'         => (int) $this->request->getPost('id_anak'),
-                'tgl_skrng'       => $this->request->getPost('tgl_skrng'),
-                'jenis_imunisasi' => $this->request->getPost('jenis_imunisasi'),
-            ];
-
-            $ok = $this->imunisasi->update($id, $payload);
-
-            if ($ok === false) {
-                $err = $this->imunisasi->errors();
-
-                if (empty($err)) {
-                    $err = $this->imunisasi->db->error();
-                    log_message('error', 'Imunisasi update DB error: {0} | payload: {1}', [json_encode($err), json_encode($payload)]);
-                    $err = [$err['message'] ?? 'DB error'];
-                }
-
-                return redirect()->back()->withInput()->with('error', implode('; ', (array) $err));
-            }
-
-            return redirect()->to(site_url('imunisasi-anak/data-imunisasi'))
-                ->with('msg', 'Berhasil Diubah');
+        if (! $this->validate($rules)) {
+            return redirect()->back()->withInput()->with('error', implode(' | ', $this->validator->getErrors()));
         }
+
+        $payload = [
+            'anak_id'         => (int) $this->request->getPost('id_anak'),
+            'tgl_skrng'       => $this->request->getPost('tgl_skrng'),
+            'jenis_imunisasi' => $this->request->getPost('jenis_imunisasi'),
+        ];
+
+        $ok = $this->imunisasi->update($id, $payload);
+
+        if ($ok === false) {
+            $err = $this->imunisasi->errors();
+
+            if (empty($err)) {
+                $err = $this->imunisasi->db->error();
+                log_message('error', 'Imunisasi update DB error: {0} | payload: {1}', [json_encode($err), json_encode($payload)]);
+                $err = [$err['message'] ?? 'DB error'];
+            }
+
+            return redirect()->back()->withInput()->with('error', implode('; ', (array) $err));
+        }
+
+        return redirect()->to(site_url('imunisasi-anak/data-imunisasi'))
+            ->with('msg', 'Berhasil Diubah');
+    }
 
     // HAPUS DATA
     public function delete_data($id)

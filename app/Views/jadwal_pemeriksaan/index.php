@@ -11,7 +11,7 @@
         ?? session()->getFlashdata('error')
         ?? '';
     ?>
-    <div class="flash-datap" data-flashdata="<?= esc($msg) ?>"></div>
+    <div class="flash-datag" data-flashdata="<?= esc($msg) ?>"></div>
     <?php if ($msg): ?><?php endif; ?>
 
     <div class="clearfix"></div>

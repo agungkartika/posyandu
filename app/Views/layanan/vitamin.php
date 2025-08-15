@@ -10,7 +10,7 @@
                         ?? session()->getFlashdata('error')
                         ?? '';
                     ?>
-                    <div class="flash-datap" data-flashdata="<?= esc($msg) ?>"></div>
+                    <div class="flash-datav" data-flashdata="<?= esc($msg) ?>"></div>
                     <?php if ($msg): ?><?php endif; ?>
 
                     <a href="<?= site_url('vitamin-anak') ?>" class="btn btn-primary">Tambah Data Vitamin</a>

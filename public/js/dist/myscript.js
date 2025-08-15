@@ -74,6 +74,25 @@ if (flashdan) {
         'success'
     );
 }
+const flashv = $('.flash-datav').data('flashdata');
+
+if (flashv) {
+    Swal.fire(
+        'Vitamin Anak',
+        flashv,
+        'success'
+    );
+}
+
+const flashg = $('.flash-datag').data('flashdata');
+
+if (flashg) {
+    Swal.fire(
+        'Generate Jadwal',
+        flashg,
+        'success'
+    );
+}
 
 
 // Tombol Konfirmasi Hapus Data
